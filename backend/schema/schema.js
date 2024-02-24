@@ -89,6 +89,7 @@ const RootQuery = new GraphQLObjectType({
             type : new GraphQLList(BookType),
             resolve : async(parent, args) => {
                 let books = await Book.find()
+                // console.log(books)
                 return books
             }
         },

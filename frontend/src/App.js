@@ -1,22 +1,20 @@
 import React from 'react'
 import BookList from './components/BookList'
-import ApolloClient from 'apollo-boost'
-import {ApolloProvider} from 'react-apollo'
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+import Author from './components/Author';
 
 const client = new ApolloClient({
-  uri : 'http://localhost:8080/graphql'
+  uri: 'http://localhost:8080/graphql',
+  cache: new InMemoryCache()
 })
 
 function App() {
   return (
     <ApolloProvider client={client}>
-      <h1>
-        Graph QL
         <BookList />
-      </h1>
+        <Author />
     </ApolloProvider>
   )
 }
 
 export default App
-  
