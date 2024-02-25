@@ -5,7 +5,7 @@ import Author from './components/Author';
 
 const client = new ApolloClient({
   uri: 'http://localhost:8080/graphql',
-  cache: new InMemoryCache()
+  cache: new InMemoryCache(),
 })
 
 function App() {

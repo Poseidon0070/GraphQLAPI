@@ -104,43 +104,48 @@ const RootQuery = new GraphQLObjectType({
 })
 
 const Mutation = new GraphQLObjectType({
-    name : 'Mutation',
-    fields : {
-        addAuthor : {
-            type : AuthorType,
-            args : {
-                name : {type : GraphQLString},
-                age : {type : GraphQLInt},
+    name: 'Mutation',
+    fields: {
+        addAuthor: {
+            type: AuthorType,
+            args: {
+                name: { type: GraphQLString },
+                age: { type: GraphQLInt },
             },
-            resolve : async (parent, args) => {
-                let author = new Author({name : args.name, age : args.age})
-                return author.save().then((auth) => {
-                    console.log("Author added successfully!")
-                    return auth
-                }).catch((err) => {
-                    console.log(err)
-                })
+            resolve: async (parent, args) => {
+                let author = new Author({ name: args.name, age: args.age })
+                try {
+                    const savedAuthor = await author.save();
+                    console.log("Author added successfully!");
+                    return savedAuthor;
+                } catch (err) {
+                    console.error("Error adding author:", err);
+                    throw err; // Ensure errors are propagated
+                }
             }
         },
-        addBook : {
-            type : BookType,
-            args : {
-                name : {type : GraphQLString},
-                genre : {type : GraphQLString},
-                authorId : {type : GraphQLID}
+        addBook: {
+            type: BookType,
+            args: {
+                name: { type: GraphQLString },
+                genre: { type: GraphQLString },
+                authorId: { type: GraphQLID }
             },
-            resolve: async(parent, args) => {
-                let newBook = new Book({name : args.name, genre : args.genre, authorId : args.authorId})
-                return newBook.save().then((book) => {
-                    console.log("Book added successfully!")
-                    return book
-                }).catch(err => {
-                    console.log(err)
-                })
+            resolve: async (parent, args) => {
+                let newBook = new Book({ name: args.name, genre: args.genre, authorId: args.authorId })
+                try {
+                    const savedBook = await newBook.save();
+                    console.log("Book added successfully!");
+                    return savedBook;
+                } catch (err) {
+                    console.error("Error adding book:", err);
+                    throw err; // Ensure errors are propagated
+                }
             }
         }
     }
-})
+});
+
 
 module.exports = new GraphQLSchema({
     query : RootQuery,
