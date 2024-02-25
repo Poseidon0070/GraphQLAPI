@@ -9,14 +9,14 @@ function BookDetail({ bookId }) {
     })
     if(!data){
         return (
-            <div>
+            <div id="book-details">
                 Select a Book from the list. 
             </div>
         )
     }
     const {book} = data
     return (
-        <div>
+        <div id="book-details">
             <h2>{book.name}</h2>
             <p>{book.genre}</p>
             <p>{book.author.name}</p>

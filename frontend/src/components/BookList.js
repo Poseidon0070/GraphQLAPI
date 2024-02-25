@@ -9,12 +9,12 @@ function BookList(props) {
   
 
   return (
-    <div className='container'>
+    <div>
       {error && <p>Some error occured</p>}
       {!error && loading ? <p>Loading</p> : (
         <div>
-          <h2>Book List</h2>
-          <ul>
+          <h2 className='text-center mt-4 font-monospace fw-bold'>Book List</h2>
+          <ul id="book-list" className='ms-4'>
             {data.books.map(book => (
               <li key={book.id}  onClick={() => {setBookId(book.id)
               }}><span>{book.name}</span></li>

@@ -11,8 +11,10 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
+    <main id="main">
         <BookList />
         <Author />
+        </main>
     </ApolloProvider>
   )
 }
